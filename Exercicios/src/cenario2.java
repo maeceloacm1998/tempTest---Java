@@ -2,31 +2,57 @@ import java.util.*;
 
 public class cenario2 {
     public static void main(String[] args) throws Exception {
-        int[] tamanho = {10,5,25,1_2};
+        int[] tamanho = {10_000,50_000,250_000,1_250_000};
         long[] vetor;
 
-        for(int i = 0; i < tamanho.length;i++){
-            long tempoInicial = System.currentTimeMillis();
-            long tempoFinal = 0;
+        
+            vetor = new long [5];
+            numRandom(vetor);
+            ordemVetor(vetor);
+            imprimir(vetor);
 
-            vetor = new long [tamanho[i]];
 
-            Random random = new Random();
-             // Valores aleatórios dentro do vetor
-            for(int j = 0;j < vetor.length;j++){
-                vetor[i] = random.nextInt(100);
+    }
+
+    // Usado para incluir números random dentro de um vetor
+    public static void numRandom(long[] vetor){
+         // Valores aleatórios dentro do vetor
+         Random random = new Random();
+         // Valores aleatórios dentro do vetor
+         for(int i = 0;i < vetor.length;i++){
+             vetor[i] = random.nextInt(1000000);
+         }
+    }
+
+    public static void imprimir(long[] vetor){
+        for(int i = 0;i < vetor.length;i++){
+            System.out.println(vetor[i]);
+        }
+    }
+
+    public static void ordemVetor(long[] vetor){
+
+        for(int i = 0;i < vetor.length;i++){
+            for(int j = 0; j < i;j++){
+                if(vetor[i] < vetor[j]){
+                    long aux = vetor[i];
+                    vetor[i] = vetor[j];
+                    vetor[j] = aux;
+                }
             }
+        }
+    }
 
-            for(int k = 0; k< vetor.length;k++){
-                System.out.println(vetor[i]);
+    public static void repeticao(long[] vetor, int valor){
+        int contador = 0;
+        for(int i = 0;i < vetor.length;i++){
+            if(valor == vetor[i] ){
+                contador += 1;
             }
-
         }
         
-
-        
-
-
-
+        if(contador != 0){
+            System.out.println("O número "+valor+" foi encontrado "+ contador + " vezes.");
+        }
     }
 }

@@ -2,6 +2,12 @@ import java.util.*;
 
 public class cenario1 {
 
+    /**
+         * Para executar o programa, entre no diretório em que o cenario1.java está e exercute os comandos:
+         * Javac cenario1.java
+         * java -Xss1G cenario1
+         */
+
     public static void main(String[] args) throws Exception {
 
         int[] tamanho = {10_000,50_000,250_000,1_250_000};
@@ -13,39 +19,33 @@ public class cenario1 {
         while(teste < 50){
             
             for(int i = 0; i < tamanho.length;i++){
-                System.out.println("esse é interativo");
-                float tempoInicial = System.currentTimeMillis();
-                float tempoFinal = 0;
+                long tempoInicial = System.currentTimeMillis();
+                long tempoFinal = 0;
 
                 vetor = new long [tamanho[i]];
+                numRandom(vetor);
                 menorNumIterativo(vetor);
 
                 tempoFinal = System.currentTimeMillis();
                 tempTotalIterativo += (int) (tempoFinal- tempoInicial);
-                System.out.print("O tempo dentro do array é:");
-                System.out.println(tempoFinal - tempoInicial + " milissegundos");
-                System.out.println("=======================================================");
             }  
 
-            // Teste vetor iterativo 50 vezes
+            // Teste vetor Recursivo 50 vezes
             for(int i = 0; i < tamanho.length;i++){
                 long tempoInicialRec = System.currentTimeMillis();
                 long tempoFinalRec = 0;
 
                 vetor = new long [tamanho[i]];
-
                 long aux = vetor[0];
-                int var = 1;
-        
-                menorNumRecursivo(vetor, aux, var);
+                int index = 1;
+                numRandom(vetor);
+                menorNumRecursivo(vetor, aux, index);
 
                 tempoFinalRec = System.currentTimeMillis();
                 tempTotalRecusivo += (int) (tempoFinalRec - tempoInicialRec);
-                System.out.print("O tempo dentro do array é:");
-                System.out.println(tempoFinalRec - tempoInicialRec + " milissegundos");
-                System.out.println("=======================================================");
             }
 
+            
             // Atualiza o wilhe
             teste++;
         }
@@ -72,6 +72,14 @@ public class cenario1 {
 
     }
 
+    public static void numRandom(long[] vetor){
+        Random random = new Random();
+        // Valores aleatórios dentro do vetor
+        for(int i = 0;i < vetor.length;i++){
+            vetor[i] = random.nextInt(1000000);
+        }
+    }
+
     
     // Fazendo a média aritmética para saber a média de tempo
     public static void media(float tempTotalIterativo ){
@@ -87,23 +95,12 @@ public class cenario1 {
      * @param vet
      */
     public static void menorNumIterativo(long[] vet) {
-
-        Random random = new Random();
-
-        // Valores aleatórios dentro do vetor
-        for(int i = 0;i < vet.length;i++){
-            vet[i] = random.nextInt(1000);
-        }
-
         long aux = vet[0];
         // Achando o menor valor dentro do vetor
         for(int i = 1;i < vet.length;i++){
-            
             if(vet[i]< aux )
-                aux = vet[i];
-                
+                aux = vet[i]; 
         }
-        System.out.println("O menor valor é: " + aux );
     }
 
 
@@ -112,17 +109,18 @@ public class cenario1 {
      * @param vet
      */
 
-    public static void menorNumRecursivo(long[] vetor,long aux,int var){
+    public static void menorNumRecursivo(long[] vetor,long aux,int index){
 
-        if(var == vetor.length)
-            System.out.println("O menor valor é :"+ aux);
-        
-        else if(vetor[var] < aux){
-            aux =  vetor[var];
-            menorNumRecursivo(vetor, aux ,var+1);
+        if(index == vetor.length){
+            System.out.println("");
         }
-        else if(var < vetor.length)
-            menorNumRecursivo(vetor, aux ,var+1);
+        else{
+            if(vetor[index] < aux)
+                aux =  vetor[index];
+
+            menorNumRecursivo(vetor, aux ,index+1);
+        }
+        
     }
 
 
