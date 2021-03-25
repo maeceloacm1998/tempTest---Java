@@ -9,8 +9,7 @@ public class cenario2 {
             vetor = new long [5];
             numRandom(vetor);
             ordemVetor(vetor);
-            imprimir(vetor);
-
+            repeticaoVetOdem(vetor);
 
     }
 
@@ -20,16 +19,18 @@ public class cenario2 {
          Random random = new Random();
          // Valores aleatórios dentro do vetor
          for(int i = 0;i < vetor.length;i++){
-             vetor[i] = random.nextInt(1000000);
+             vetor[i] = random.nextInt(100_000);
          }
     }
 
+    // Usado para imprimir um vetor;
     public static void imprimir(long[] vetor){
         for(int i = 0;i < vetor.length;i++){
             System.out.println(vetor[i]);
         }
     }
 
+    // Usado para ordenar um vetor
     public static void ordemVetor(long[] vetor){
 
         for(int i = 0;i < vetor.length;i++){
@@ -43,16 +44,52 @@ public class cenario2 {
         }
     }
 
-    public static void repeticao(long[] vetor, int valor){
-        int contador = 0;
+    // Usado para calcular repetição de um vetor ordenado
+    public static void repeticaoVetOdem(long[] vetor){
+        // Valores a pegar
+        int contador = 0; // Usado para guardar quantas vezes o valor foi achado
+        long inexistente = 100_001; // Usado para achar o valor inexitente
+        System.out.println("=======================================================================");
+        System.out.println("O valor é:"+inexistente);
+        long numInicio = vetor[0]; // Usado para achar o valor nos primeiros 10%
+        System.out.println("O valor inicio é:"+numInicio);
+        long numFinal = vetor[(vetor.length-1)-1]; // Usado para achar o valor nos ultimos 10%
+        System.out.println("O valor final é:"+numFinal);
+
+        // Com os primeiros 10%
         for(int i = 0;i < vetor.length;i++){
-            if(valor == vetor[i] ){
-                contador += 1;
+            if( numInicio == vetor[i] ){
+                contador++;
+                if(vetor[i+1] != numInicio){
+                    break;
+                }
             }
         }
-        
-        if(contador != 0){
-            System.out.println("O número "+valor+" foi encontrado "+ contador + " vezes.");
+        System.out.println("Com o valor obitido nos primeiros 10%, o valor " +numInicio+ " foi encontrado "+ contador+" vezes");
+
+        // Com os ultimos 10%
+        contador = 0;
+        for(int i = 0;i < vetor.length;i++){
+            if( numFinal == vetor[i] ){
+                contador++;
+                if(vetor[i+1] != numInicio ){
+                    break;
+                }
+            }
         }
+        System.out.println("Com o valor obitido nos ultimos 10%, o valor " +numFinal+ " foi encontrado "+ contador+" vezes");
+
+        // Com valor inexistente
+        contador = 0;
+        for(int i = 0;i < vetor.length;i++){
+            if( inexistente == vetor[i] ){
+                contador++;
+                if(vetor[i+1] != numInicio){
+                    break;
+                }
+            }
+        }
+        System.out.println("Nos Primeiros 10%, o valor " +inexistente+ " foi encontrado "+ contador+" vezes");
+        System.out.println("=======================================================================");
     }
 }
