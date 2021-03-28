@@ -4,7 +4,7 @@ public class cenario1 {
 
     /**
          * Para executar o programa, entre no diretório em que o cenario1.java está e exercute os comandos:
-         * Javac cenario1.java
+         * javac cenario1.java
          * java -Xss1G cenario1
          */
 
@@ -16,26 +16,44 @@ public class cenario1 {
         float tempTotalIterativo = 0;
         float tempTotalRecusivo = 0;
 
-        while(teste < 50){
-            
-            for(int i = 0; i < tamanho.length;i++){
+        for(int i = 0; i < tamanho.length;i++){
+            vetor = new long [tamanho[i]];
+
+
+            /**
+             * Esse while correspodente a parte Iterativo
+             */
+            teste = 0;
+            while(teste< 50){
                 long tempoInicial = System.currentTimeMillis();
                 long tempoFinal = 0;
 
-                vetor = new long [tamanho[i]];
                 numRandom(vetor);
                 menorNumIterativo(vetor);
 
                 tempoFinal = System.currentTimeMillis();
                 tempTotalIterativo += (int) (tempoFinal- tempoInicial);
-            }  
+                teste++;
+            }
 
-            // Teste vetor Recursivo 50 vezes
-            for(int i = 0; i < tamanho.length;i++){
+            // Impressão do tempo total gasto e a média do iterativo
+            System.out.println("=====================================================================================");
+            System.out.println("-------------O tempo total gasto para executar 50x o iterativo foi de:-------------");
+            System.out.println("TAMANHO: "+ vetor.length );
+            System.out.println(tempTotalIterativo+" milissegundos");
+
+            System.out.println("-------------A média de tempo gasto foi de:-------------");
+            media(tempTotalIterativo);
+            System.out.println("=====================================================================================");
+
+            /**
+             * Esse while correspodente a parte recursiva
+             */
+            teste = 0;
+            while(teste < 50){
                 long tempoInicialRec = System.currentTimeMillis();
                 long tempoFinalRec = 0;
 
-                vetor = new long [tamanho[i]];
                 long aux = vetor[0];
                 int index = 1;
                 numRandom(vetor);
@@ -43,33 +61,21 @@ public class cenario1 {
 
                 tempoFinalRec = System.currentTimeMillis();
                 tempTotalRecusivo += (int) (tempoFinalRec - tempoInicialRec);
+                
+                teste++;
             }
 
-            
-            // Atualiza o wilhe
-            teste++;
+
+            // Impressão do tempo total gasto e a média do Recursivo
+            System.out.println("=====================================================================================");
+            System.out.println("-------------O tempo total gasto para executar 50x o Recursivo foi de:-------------");
+            System.out.println("TAMANHO: "+ vetor.length );
+            System.out.println(tempTotalRecusivo+" segundos");
+
+            System.out.println("-------------A média de tempo gasto foi de:-------------");
+            media(tempTotalRecusivo);
+            System.out.println("=====================================================================================");
         }
-
-
-        // Impressão do tempo total gasto e a média do iterativo
-        System.out.println("=====================================================================================");
-        System.out.println("-------------O tempo total gasto para executar 50x o iterativo foi de:-------------");
-        System.out.println(tempTotalIterativo+" milissegundos");
-
-        System.out.println("-------------A média de tempo gasto foi de:-------------");
-        media(tempTotalIterativo);
-        System.out.println("=====================================================================================");
-
-
-        // Impressão do tempo total gasto e a média do Recursivo
-        System.out.println("=====================================================================================");
-        System.out.println("-------------O tempo total gasto para executar 50x o Recursivo foi de:-------------");
-        System.out.println(tempTotalRecusivo+" segundos");
-
-        System.out.println("-------------A média de tempo gasto foi de:-------------");
-        media(tempTotalRecusivo);
-        System.out.println("=====================================================================================");
-
     }
 
     public static void numRandom(long[] vetor){
@@ -109,16 +115,16 @@ public class cenario1 {
      * @param vet
      */
 
-    public static void menorNumRecursivo(long[] vetor,long aux,int index){
+    public static long menorNumRecursivo(long[] vetor,long aux,int index){
 
         if(index == vetor.length){
-            System.out.println("");
+            return aux;
         }
         else{
             if(vetor[index] < aux)
                 aux =  vetor[index];
 
-            menorNumRecursivo(vetor, aux ,index+1);
+         return   menorNumRecursivo(vetor, aux ,index+1);
         }
         
     }
